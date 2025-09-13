@@ -1,0 +1,21 @@
+{
+    "name": "main-project",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "packageManager": "pnpm@9.12.3",
+    "scripts": {
+      "dev": "pnpm -r --parallel --if-present dev",
+      "dev:react": "pnpm -F clothing-project-react dev",
+      "dev:vue": "pnpm -F math-project-vue dev",
+      "build": "pnpm -r build"
+    },
+    "devDependencies": {
+      "@unocss/reset": "^66.5.0",
+      "unocss": "^66.5.0",
+      "unocss-preset-theme": "^0.14.1"
+    }
+  }

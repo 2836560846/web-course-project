@@ -1,0 +1,11 @@
+# pnpm 工作区配置
+# 功能：声明参与工作区的子包，以及统一的依赖目录（catalog）版本
+# 关键点：
+# - packages 使用相对当前工作区根（main-project）的通配，匹配所有直接子目录中的包
+# - catalog 提供 vite/typescript 的统一版本；子包通过 "catalog:" 引用这些版本
+packages:
+  - "*"
+
+catalog:
+  vite: ^5.3.4
+  typescript: ^5.2.2
