@@ -4,7 +4,7 @@
 # - packages 使用相对当前工作区根（main-project）的通配，匹配所有直接子目录中的包
 # - catalog 提供 vite/typescript 的统一版本；子包通过 "catalog:" 引用这些版本
 packages:
-  - "*"
+  - "packages/*"
 
 catalog:
   vite: ^5.3.4

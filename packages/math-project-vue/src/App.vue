@@ -1,11 +1,22 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import dayjs from 'dayjs'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import ZhiHu from './components/zhiHu.vue'
+import { useMock } from "@/composables/useMock";
+import { onMounted, ref } from "vue";
+import { useI18n } from "@/composables/useI18n";
+
+const mock = useMock();
+
+const list = ref();
+onMounted(() => {
+  list.value = mock.getSongs();
+  // console.log('list :>> ', list.value)
+});
+
 
 const nowText = ref(dayjs().format('YYYY年MM月DD日 HH:mm:ss'))
 let timerId = null
-
 onMounted(() => {
   timerId = window.setInterval(() => {
     nowText.value = dayjs().format('YYYY年MM月DD日 HH:mm:ss')
@@ -13,7 +24,8 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (timerId) window.clearInterval(timerId)
+  if (timerId)
+    window.clearInterval(timerId)
 })
 
 // background shrink animation state
@@ -25,7 +37,7 @@ const overlayStyle = computed(() => ({
   WebkitClipPath: clipPath.value,
 }))
 
-const startBgShrinkAnimation = (evt) => {
+function startBgShrinkAnimation(evt) {
   const isDark = document.documentElement.classList.contains('dark')
   overlayBgClass.value = isDark ? 'bg-zinc-900' : 'bg-white'
 
@@ -43,16 +55,16 @@ const startBgShrinkAnimation = (evt) => {
   })
 }
 
-const onThemeChange = (themeName) => {
+function onThemeChange(themeName) {
   document.body.className = themeName
 }
 
-const setLight = (evt) => {
+function setLight(evt) {
   startBgShrinkAnimation(evt)
   document.documentElement.classList.remove('dark')
 }
 
-const setDark = (evt) => {
+function setDark(evt) {
   startBgShrinkAnimation(evt)
   document.documentElement.classList.add('dark')
 }
@@ -80,7 +92,6 @@ const setDark = (evt) => {
         <button class="px-3 py-1 rounded border border-gray-300 bg-gray-100 text-gray-800 dark:bg-zinc-800 dark:text-zinc-100 dark:border-zinc-700" @click="onThemeChange('peaple')">peaple</button>
         <button class="px-3 py-1 rounded border border-gray-300 bg-gray-100 text-gray-800 dark:bg-zinc-800 dark:text-zinc-100 dark:border-zinc-700" @click="onThemeChange('spring')">spring</button>
       </header>
-      
       <div style="margin-bottom:12px;display:flex;justify-content:center;gap:8px;">
         <button class="bg-primary text-white">primary</button>
         <button class="bg-warning text-white">warning</button>
@@ -88,6 +99,28 @@ const setDark = (evt) => {
         <button class="bg-info text-white">info</button>
       </div>
       <ZhiHu />
+    </div>
+  </div>
+  <nav mt-10 flex justify-center gap-2>
+    <button h-10 btn @click="setLocal('zh')">中文</button>
+    <button h-10 btn @click="setLocal('en')">English</button>
+  </nav>
+
+  <h1>{{ $t.hello }} {{ $t.MilkyWay }}</h1>
+  <h2>礼堂金曲</h2>
+  <div
+    v-for="item in list"
+    :key="item.id"
+    class="mx-auto mb-2 w-160 flex items-center gap-4"
+  >
+    <div size-10 content-center rounded-full bg-red-3>
+      {{ item.id }}
+    </div>
+    <img :src="item.img" alt="" />
+    <div>{{ item.singer }}</div>
+    <div class="flex-1 text-xl font-bold">《{{ item.songName }}》</div>
+    <div text-right>
+      {{ item.date }}
     </div>
   </div>
 </template>

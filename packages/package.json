@@ -1,21 +1,41 @@
 {
-    "name": "main-project",
-    "version": "1.0.0",
-    "description": "",
-    "license": "ISC",
-    "author": "",
-    "type": "commonjs",
-    "main": "index.js",
-    "packageManager": "pnpm@9.12.3",
-    "scripts": {
-      "dev": "pnpm -r --parallel --if-present dev",
-      "dev:react": "pnpm -F clothing-project-react dev",
-      "dev:vue": "pnpm -F math-project-vue dev",
-      "build": "pnpm -r build"
-    },
-    "devDependencies": {
-      "@unocss/reset": "^66.5.0",
-      "unocss": "^66.5.0",
-      "unocss-preset-theme": "^0.14.1"
-    }
-  }
+  "name": "main-project",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "packageManager": "pnpm@9.12.3",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r --parallel --if-present dev",
+    "dev:react": "pnpm -F clothing-project-react dev",
+    "dev:vue": "pnpm -F math-project-vue dev",
+    "build": "pnpm -r build"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.3.0",
+    "@intlify/unplugin-vue-i18n": "^11.0.1",
+    "@unocss/reset": "^66.5.0",
+    "eslint": "^9.35.0",
+    "lint-staged": "^16.1.6",
+    "simple-git-hooks": "^2.13.1",
+    "unocss": "^66.5.0",
+    "unocss-preset-theme": "^0.14.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.9.0",
+    "dayjs": "^1.11.18",
+    "vue-i18n": "^11.1.12"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
